@@ -1,2 +1,5 @@
-<h1>Wikis#show</h1>
-<p>Find me in app/views/wikis/show.html.erb</p>
+<div class="jumbotron">
+  <h2 class="text-center"><%= @wiki.title %></h2>
+  <p><%= @wiki.body %></p>
+</div>
+<p class="text-center"> <%= link_to "Edit", edit_wiki_path %> </p>

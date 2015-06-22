@@ -1,3 +1,19 @@
-<div class="row">
-  <h2 text-align="center"> My wikis </h2>
+<h2 class="text-center"> My wikis </h2>
+<div class="jumbotron" >
+  <div class="row">
+    <% @wikis.each do |wiki| %>
+    <div class="col-md-6">
+      <p class="lead"> <%= link_to wiki.title, wiki %> </p>
+    </div>
+    <div class="col-md-1">
+      <p> <%= link_to "edit", edit_wiki_path(wiki) %> </p>
+    </div>
+    
+     <div class="col-md-1">
+       <p> <%= link_to "delete", wiki, method: :delete %> </p>
+    </div>
+    <% end %>
+  </div>
 </div>
+
+<p class="text-center"> <%= link_to "create wiki", new_wiki_path %> </p>
