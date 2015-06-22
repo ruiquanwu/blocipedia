@@ -2,18 +2,23 @@
 <div class="jumbotron" >
   <div class="row">
     <% @wikis.each do |wiki| %>
-    <div class="col-md-6">
+    <div class="col-md-8">
       <p class="lead"> <%= link_to wiki.title, wiki %> </p>
     </div>
     <div class="col-md-1">
-      <p> <%= link_to "edit", edit_wiki_path(wiki) %> </p>
+      <% if policy(wiki).edit? %>
+        <p> <%= link_to "edit", edit_wiki_path(wiki) %> </p>
+      <%end%>
     </div>
     
      <div class="col-md-1">
-       <p> <%= link_to "delete", wiki, method: :delete %> </p>
+       <% if policy(wiki).destroy? %>
+         <p> <%= link_to "delete", wiki, method: :delete %> </p>
+       <% end %>
     </div>
     <% end %>
   </div>
 </div>
-
+<% if policy(Wiki.new).create? %>
 <p class="text-center"> <%= link_to "create wiki", new_wiki_path %> </p>
+<% end %>
