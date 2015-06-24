@@ -18,4 +18,13 @@ class User < ActiveRecord::Base
   def premium?
     role == "premium"
   end
+  
+  def standard?
+    role == "standard"
+  end
+  
+  def downgrade
+    current_user.role = "standard"
+    current_user.save
+  end
 end
