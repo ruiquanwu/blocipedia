@@ -1,0 +1,10 @@
+<div class="row">
+  <%= @user.name %>
+  <p>User plan: <%= @user.role %></p>
+  <% if @user.standard? %>
+  <p> <%= link_to "Upgrade to premium", new_charge_path %> </p>
+  <% end %>
+  <% if @user.premium? %>
+  <p> <%= link_to "Downgrade to standard", user_downgrade_plan_path(@user), method: :post %> </p>
+  <% end %>
+</div>
