@@ -1,18 +1,28 @@
 class WikisController < ApplicationController
   def index
-    @wikis = Wiki.all
+    if current_user
+      
+      @wikis = (current_user.admin?)? Wiki.all : current_user.wikis
+      authorize @wikis
+    else
+      @wikis = Wiki.publicly_viewable
+      authorize @wikis
+    end
   end
 
   def show
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
   def new
     @wiki = Wiki.new
+    authorize @wiki
   end
 
   def create
     @wiki = current_user.wikis.build(wiki_params)
+    authorize @wiki
     if @wiki.save
       redirect_to @wiki, notice: "wiki was saved successfully."
     else
@@ -23,6 +33,7 @@ class WikisController < ApplicationController
   
   def edit
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
   
   def update
@@ -41,7 +52,7 @@ class WikisController < ApplicationController
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
       redirect_to wikis_path
     else
-      flash[:error] = "There was an error deleting the topic."
+      flash[:error] = "There was an error deleting the wiki."
       render :show
     end
   end
