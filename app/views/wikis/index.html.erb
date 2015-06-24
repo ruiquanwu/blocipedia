@@ -7,7 +7,7 @@
   <div class="row">
     <% @wikis.each do |wiki| %>
     <div class="col-md-8">
-      <p class="lead"> <%= link_to wiki.title, wiki %> </p>
+      <p class="lead"> <%= markdown_to_html link_to wiki.title, wiki %> </p>
     </div>
     <div class="col-md-1">
       <% if policy(wiki).edit? %>
