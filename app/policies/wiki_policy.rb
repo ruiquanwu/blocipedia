@@ -4,6 +4,6 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def show?
-    record.user == user || !record.private || user.admin?
+    record.user == user || !record.private || (user.present? && user.admin?)
   end
 end
