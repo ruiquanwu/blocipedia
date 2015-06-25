@@ -22,6 +22,7 @@
    def downgrade
      @user = User.find(params[:user_id])
      @user.role = "standard"
+     wiki_to_public @user
      if @user.save
        flash[:notice] = "Plan has been downgraded to standard"
      else
@@ -33,5 +34,14 @@
  
    def user_params
         params.require(:user).permit(:name)
+   end
+   
+   def wiki_to_public user
+     user.wikis.each do |wiki|
+       if wiki.private
+         wiki.private = false
+         wiki.save
+       end
+     end
    end
  end

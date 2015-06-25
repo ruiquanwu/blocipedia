@@ -1,4 +1,8 @@
+<% if current_user %>
 <h2 class="text-center"> My wikis </h2>
+<% else %>
+<h2 class="text-center"> Public wikis </h2>
+<% end %>
 <div class="jumbotron" >
   <div class="row">
     <% @wikis.each do |wiki| %>
