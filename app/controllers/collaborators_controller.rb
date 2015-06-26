@@ -10,7 +10,7 @@ class CollaboratorsController < ApplicationController
     if params[:user_ids].nil?
       redirect_to :back, notice: "Error no user selected"
     else
-      @users = User.find(params[:user_ids])
+      @users = User.friendly.find(params[:user_ids])
       @collaborators = []
       @users.each do |user|
         @collaborator = Collaborator.new(wiki_id: @wiki.id, user_id: user.id)
@@ -26,7 +26,7 @@ class CollaboratorsController < ApplicationController
   
   def destroy
     @wiki = Wiki.find(params[:wiki_id])
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     @collaborate = Collaborator.where(wiki_id: @wiki.id, user_id: @user.id).first
    #raise  
     if @collaborate.destroy

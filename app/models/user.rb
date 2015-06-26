@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  extend FriendlyId
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -8,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :collaborators
   has_many :associate_wikis, through: :collaborators, :source => 'wiki'
   after_initialize :init_roles
+  
+  friendly_id :name, use: :slugged
   
   def init_roles
     self.role ||= "standard"
