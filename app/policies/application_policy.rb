@@ -23,7 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
-    user.present? && (record.user == user || user.admin?)
+    user.present? && (record.user == user || user.admin? || record.associate_users.include?(user))
   end
 
   def edit?

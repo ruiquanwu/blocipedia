@@ -1,0 +1,49 @@
+<h1> Add Collaborators to the "<%= @wiki.title%>" Wiki </h1>
+<%= form_tag wiki_share_wiki_path(@wiki) do %>
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-md-4">
+      <h3> Name </h3>
+    </div>
+    <div class="col-md-4">
+      <h3> Email </h3>
+    </div>
+    <div class="col-md-4">
+      <h3> Give Access </h3>
+    </div>
+  <% @users.each do |user| %>
+    <% unless @wiki.associate_users.include?(user) %>
+    <div class="col-md-4">
+      <p> <%= user.name %> </p>
+    </div>
+    <div class="col-md-4">
+      <p> <%= user.email %> </p>
+    </div>
+    <div class="col-md-4">
+      <p>   <%= check_box_tag "user_ids[]", user.id %> </p>
+    </div>
+    <% end %>
+  <% end %>
+
+  </div>
+</div>
+<div class="text-center">
+  <%= submit_tag "Share Wiki"%>
+</div>
+
+<%end%>
+<div class="row" >
+  <h2> Collaborators </h2>
+  <% @wiki.associate_users.each do |added_user| %>
+    <div class="col-md-4">
+      <p> <%= added_user.name %> </p>
+    </div>
+    <div class="col-md-4">
+      <p> <%= added_user.email %> </p>
+    </div>
+    <div class="col-md-4">
+      <p> <%= link_to "remove", wiki_collaborator_path(@wiki, added_user), method: :delete %> </p>
+    </div>
+  <% end %>
+</div>
+

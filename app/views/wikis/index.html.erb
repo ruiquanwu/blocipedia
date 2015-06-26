@@ -6,9 +6,16 @@
 <div class="jumbotron" >
   <div class="row">
     <% @wikis.each do |wiki| %>
-    <div class="col-md-8">
+    <div class="col-md-7">
       <p class="lead"> <%= markdown_to_html link_to wiki.title, wiki %> </p>
     </div>
+    
+    <div class="col-md-3">
+      <% if policy(wiki).add_collaborator? %>
+        <p> <%= link_to "add/rm collaborator", new_wiki_collaborator_path(wiki) %> </p>
+      <%end%>
+    </div>
+    
     <div class="col-md-1">
       <% if policy(wiki).edit? %>
         <p> <%= link_to "edit", edit_wiki_path(wiki) %> </p>
