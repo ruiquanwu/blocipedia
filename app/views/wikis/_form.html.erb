@@ -1,4 +1,9 @@
- <div class="row">
+<script type="text/javascript">
+    var editor = new EpicEditor().load();
+</script>
+
+
+<div class="row">
    <div class="col-md-4">
      <p>Guidelines for wikis:</p>
      <ul>
@@ -13,10 +18,11 @@
          <%= f.label :title %>
          <%= f.text_field :title, class: 'form-control', placeholder: "Enter wiki title" %>
        </div>
-       <div class="form-group">
+       <div class="form-group" id="epiceditor">
          <%= f.label :body %>
          <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
        </div>
+     <br>
      <% if current_user.premium? || current_user.admin? %>
        <div class="form-group">
          <%= f.label :private, class: 'checkbox' do %>
