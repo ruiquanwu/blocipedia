@@ -1,12 +1,9 @@
 class WikisController < ApplicationController
   def index
-    if current_user
-      
-      @wikis = (current_user.admin?)? Wiki.all : current_user.wikis
-      authorize @wikis
+    if current_user.present?
+    @wikis = policy_scope(Wiki)
     else
       @wikis = Wiki.publicly_viewable
-      authorize @wikis
     end
   end
 

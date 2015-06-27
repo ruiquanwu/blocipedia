@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   
   has_many :wikis
+  has_many :collaborators
+  has_many :associate_wikis, through: :collaborators, :source => 'wiki'
   after_initialize :init_roles
   
   def init_roles
@@ -24,7 +26,14 @@ class User < ActiveRecord::Base
   end
   
   def downgrade
-    current_user.role = "standard"
-    current_user.save
+    self.role = "standard"
+    self.wikis.each do |wiki|
+      if wiki.private
+        wiki.private = false
+        wiki.save
+      end
+    end
+    self.save
   end
+  
 end

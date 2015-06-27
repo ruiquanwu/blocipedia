@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  <h2 class="text-center"><%= @wiki.title %></h2>
-  <p><%= @wiki.body %></p>
+  <h2 class="text-center"><%= markdown_to_html @wiki.title %></h2>
+  <p><%= markdown_to_html @wiki.body %></p>
 </div>
 <p class="text-center"> <%= link_to "Edit", edit_wiki_path %> </p>
